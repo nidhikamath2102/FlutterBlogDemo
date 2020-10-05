@@ -9,11 +9,9 @@ class LoginSignUp extends StatefulWidget{
 class _LoginSignUpState extends State<LoginSignUp>{
 
   void login(){
-
   }
 
   void register(){
-
   }
 
   @override
