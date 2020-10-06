@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'Authentication.dart';
+import 'authentication/Authentication.dart';
 
 class LoginSignUp extends StatefulWidget {
   LoginSignUp({this.auth, this.onLoggedIn});

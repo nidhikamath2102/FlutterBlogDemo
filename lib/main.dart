@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'CheckAuthentication.dart';
-import 'Authentication.dart';
+import 'authentication/CheckAuthentication.dart';
+import 'authentication/Authentication.dart';
 
 void main() {
   runApp(new BlogApp());
