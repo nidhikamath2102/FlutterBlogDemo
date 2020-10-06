@@ -1,8 +1,12 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
+import 'Authentication.dart';
 
 class LoginSignUp extends StatefulWidget {
+  LoginSignUp({this.auth, this.onLoggedIn});
+
+  final ImplementAuth auth;
+  final VoidCallback onLoggedIn;
+
   State<StatefulWidget> createState() {
     return _LoginSignUpState();
   }
@@ -16,13 +20,30 @@ class _LoginSignUpState extends State<LoginSignUp> {
   String _email = "";
   String _password = "";
 
-  bool validate(){
+  bool validate() {
     final form = formKey.currentState;
-    if(form.validate()){
+    if (form.validate()) {
       form.save();
       return true;
-    }else{
+    } else {
       return false;
+    }
+  }
+
+  void submit() async {
+    if (validate()) {
+      try {
+        if (_formType == FormType.login) {
+          String userId = await widget.auth.logIn(_email, _password);
+          print("user logged in " + userId);
+        } else {
+          String userId = await widget.auth.signUp(_email, _password);
+          print("user created " + userId);
+        }
+        widget.onLoggedIn();
+      } catch (e) {
+        print("error = " + e.toString());
+      }
     }
   }
 
@@ -97,52 +118,48 @@ class _LoginSignUpState extends State<LoginSignUp> {
   }
 
   List<Widget> buttons() {
-    if(_formType == FormType.login){
-      return[
+    if (_formType == FormType.login) {
+      return [
         new RaisedButton(
           child: new Text(
             "Login",
-            style: new TextStyle(
-                fontSize: 20.0
-            ),
+            style: new TextStyle(fontSize: 20.0),
           ),
           textColor: Colors.white,
           color: Colors.red,
-          onPressed: validate,
+          onPressed: submit,
         ),
-        SizedBox(height: 10.0,),
+        SizedBox(
+          height: 10.0,
+        ),
         new FlatButton(
           child: new Text(
             "Do not have an account? Sign Up",
-            style: new TextStyle(
-                fontSize: 14.0
-            ),
+            style: new TextStyle(fontSize: 14.0),
           ),
           textColor: Colors.red,
           color: Colors.white,
           onPressed: register,
         ),
       ];
-    }else{
-      return[
+    } else {
+      return [
         new RaisedButton(
           child: new Text(
             "Create An Account",
-            style: new TextStyle(
-                fontSize: 20.0
-            ),
+            style: new TextStyle(fontSize: 20.0),
           ),
           textColor: Colors.white,
           color: Colors.red,
-          onPressed: validate,
+          onPressed: submit,
         ),
-        SizedBox(height: 10.0,),
+        SizedBox(
+          height: 10.0,
+        ),
         new FlatButton(
           child: new Text(
             "Have an account? Log In",
-            style: new TextStyle(
-                fontSize: 14.0
-            ),
+            style: new TextStyle(fontSize: 14.0),
           ),
           textColor: Colors.red,
           color: Colors.white,

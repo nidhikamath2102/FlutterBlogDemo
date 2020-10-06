@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'LoginSignUp.dart';
+import 'CheckAuthentication.dart';
+import 'Authentication.dart';
 
 void main() {
   runApp(new BlogApp());
@@ -13,7 +14,7 @@ class BlogApp extends StatelessWidget {
       theme: new ThemeData(
         primarySwatch: Colors.red,
       ),
-      home: LoginSignUp(),
+      home: CheckAuth(implementAuth: Auth(),),
     );
   }
 }
