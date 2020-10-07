@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'authentication/Authentication.dart';
+import 'DialogBox.dart';
 
 class LoginSignUp extends StatefulWidget {
   LoginSignUp({this.auth, this.onLoggedIn});
@@ -15,6 +16,9 @@ class LoginSignUp extends StatefulWidget {
 enum FormType { login, register }
 
 class _LoginSignUpState extends State<LoginSignUp> {
+
+  DialogBox dialogBox = new DialogBox();
+
   final formKey = new GlobalKey<FormState>();
   FormType _formType = FormType.login;
   String _email = "";
@@ -35,13 +39,16 @@ class _LoginSignUpState extends State<LoginSignUp> {
       try {
         if (_formType == FormType.login) {
           String userId = await widget.auth.logIn(_email, _password);
+          //dialogBox.Information(context, "Success!", "Your have logged In successfully.");
           print("user logged in " + userId);
         } else {
           String userId = await widget.auth.signUp(_email, _password);
+          //dialogBox.Information(context, "Success!", "Your account has been created successfully.");
           print("user created " + userId);
         }
         widget.onLoggedIn();
       } catch (e) {
+        dialogBox.Information(context, "Error", e.toString());
         print("error = " + e.toString());
       }
     }
@@ -77,6 +84,7 @@ class _LoginSignUpState extends State<LoginSignUp> {
           ),
         ),
       ),
+      resizeToAvoidBottomPadding: true,
     );
   }
 
