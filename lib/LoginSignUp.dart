@@ -78,8 +78,8 @@ class _LoginSignUpState extends State<LoginSignUp> {
         margin: EdgeInsets.all(20.0),
         child: new Form(
           key: formKey,
-          child: new Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
+          child: new ListView(
+            //crossAxisAlignment: CrossAxisAlignment.center,
             children: inputWidgets() + buttons(),
           ),
         ),
